@@ -17,7 +17,7 @@ insert into inspector(UserName,FirstName,LastName,Password,CanInspect) values('s
 insert into inspector(UserName,FirstName,LastName,Password,CanInspect) values('sagar@gmail.com','sagar','desai',md5('sagar'),true)
 insert into inspector(UserName,FirstName,LastName,Password,CanInspect) values('sachin@gmail.com','sachin','desai',md5('sachin'),false)
 
-
+--------------------------------------------------------------------------
 create table inspection(
     ID int NOT NULL AUTO_INCREMENT,
     InspectorId INT,

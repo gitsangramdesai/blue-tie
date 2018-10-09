@@ -19,15 +19,17 @@ var Inspection = {
             [Inspection.InspectorId, Inspection.VenueType, Inspection.latitute, Inspection.longtitute, Inspection.InspectionLocation, Inspection.InspectedDevice, dateTime, Inspection.Status, Inspection.Remarks], callback);
     },
     Search: function (Inspection, callback) {
-        var query = "select * from inspection where 1=1 ";
+        var query = "select inspection.ID,InspectorId,VenueType,latitute,longtitute,InspectionLocation,InspectedDevice,InspectionDate,Status,Remarks,Active,RemarkDate from inspection inner join inspection_Remark on inspection.Id = inspection_Remark.InspectionId where Active=true and ";
         var orCount = 0;
 
         if (Inspection.from != null && Inspection.to != null) {
-            query = query + " and InspectionDate between '" + Inspection.from + "' and '" + Inspection.to + "'"
-        } else {
+            query = query + " InspectionDate between '" + Inspection.from + "' and '" + Inspection.to + "' and ("
+        }  
+        
+        {
             if (Inspection.VenueType != null && Inspection.VenueType != undefined) {
                 if (orCount == 0) {
-                    query = query + " and "
+                    query = query + "  "
                     orCount++
                 }
                 query = query + " VenueType like '%" + Inspection.VenueType + "%'"
@@ -57,7 +59,7 @@ var Inspection = {
 
             if (Inspection.Remarks != null && Inspection.Remarks != undefined) {
                 if (orCount == 0) {
-                    query = query + " and "
+                    query = query + "  "
                     orCount++
                 } else {
                     orCount++
@@ -65,6 +67,17 @@ var Inspection = {
                 }
                 query = query + "  Remarks like '%" + Inspection.Remarks + "%'"
             }
+
+
+            if (orCount == 0) {
+                query = query + " 1=1 )"
+                orCount++
+            } else {
+                orCount++
+                query = query + " ) "
+            }
+
+            
 
         }
         console.log(query)
