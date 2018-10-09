@@ -126,9 +126,13 @@ router.post('/inspect', function (req, res, next) {
     }
   }
 
-
+  var InspectionId =0
+  if (req.body.Id != undefined) {
+    InspectionId=req.body.Id
+  }
 
   var inspection = {
+    InspectionId:InspectionId,
     VenueType: VenueType,
     latitute: latitute,
     longtitute: longtitute,

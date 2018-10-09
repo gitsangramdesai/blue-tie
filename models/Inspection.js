@@ -11,7 +11,7 @@ var Inspection = {
     autheticate: function (username, password, callback) {
         return pool.query("Select * from inspector where UserName=? and Password=?", [username, password], callback);
     },
-    saveInspection: function (Inspection, callback) {
+    saveInspection1: function (Inspection, callback) {
         var dateTime = new Date();
         dateTime = moment(dateTime).format("YYYY-MM-DD HH:mm:ss");
 
@@ -71,6 +71,13 @@ var Inspection = {
 
         return pool.query(query, callback);
     },
+    saveInspection: function (Inspection, callback) {
+        var dateTime = new Date();
+        dateTime = moment(dateTime).format("YYYY-MM-DD HH:mm:ss");
+
+        return pool.query("call SaveInspection(? ,? ,?,?, ? ,?,? ,? ,? );",[Inspection.InspectionId,Inspection.InspectorId ,Inspection.VenueType,Inspection.latitute ,Inspection.longtitute ,Inspection.InspectionLocation ,
+                Inspection.InspectedDevice ,Inspection.Status ,Inspection.Remarks], callback);
+    }
 
 }
 
